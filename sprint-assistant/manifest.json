@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Sprint Assistant for Azure DevOps",
-  "version": "0.7.0",
-  "description": "Check sprint readiness and Feature coverage in Azure DevOps with any AI assistant. Stays open in the side panel.",
+  "name": "Refiner",
+  "version": "0.8.0",
+  "description": "The gap finder for Azure DevOps: check sprint readiness and Feature coverage with any AI assistant. Made by Vinay.",
   "author": "Vinay",
   "minimum_chrome_version": "114",
   "icons": {
@@ -12,7 +12,7 @@
     "128": "icons/icon128.png"
   },
   "action": {
-    "default_title": "Open Sprint Assistant",
+    "default_title": "Open Refiner",
     "default_icon": {
       "16": "icons/icon16.png",
       "32": "icons/icon32.png",

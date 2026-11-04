@@ -1,4 +1,4 @@
-// Sprint Assistant result page: paste the AI's answer, see the visual result,
+// Refiner result page: paste the AI's answer, see the visual result,
 // approve learnings into the team context wiki page.
 
 const $ = (id) => document.getElementById(id);
@@ -358,7 +358,7 @@ async function init() {
     $('title').textContent = 'Sprint Readiness · ' + lastSegment(stored.scope.iteration);
     $('subtitle').textContent = lastSegment(stored.scope.area) + ' · ' + (stored.items || []).length + ' stories · copied ' + when;
   }
-  document.title = $('title').textContent + ' · Sprint Assistant';
+  document.title = $('title').textContent + ' · Refiner';
 
   $('btn-show').addEventListener('click', showResultFromPaste);
   $('btn-repaste').addEventListener('click', () => {
@@ -376,8 +376,8 @@ init();
 
 window.addEventListener('hashchange', () => location.reload());
 
-// Credit line: "Sprint Assistant <version>  ·  Made by Vinay"
+// Credit line: "Refiner <version>  ·  Made by Vinay"
 try {
   const v = chrome.runtime.getManifest().version;
-  document.querySelectorAll('.credit .ver').forEach((el) => { el.textContent = 'Sprint Assistant ' + v; });
+  document.querySelectorAll('.credit .ver').forEach((el) => { el.textContent = 'Refiner ' + v; });
 } catch (e) { /* outside the extension */ }

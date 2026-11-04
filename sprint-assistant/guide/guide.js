@@ -1,4 +1,4 @@
-// Sprint Assistant walkthrough: a slideshow player with chapters, play/pause and step controls.
+// Refiner walkthrough: a slideshow player with chapters, play/pause and step controls.
 (function () {
   const B = window.GUIDE_BOXES || {};
   const IN_EXTENSION = typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.id;
@@ -60,21 +60,21 @@
     card: () =>
       '<div class="mock">' + browserBar('chrome://extensions') +
       '<div class="mock-body"><div class="ext-card popin"><img class="ic" src="img/icon.png" alt="">' +
-      '<div class="meta"><b>Sprint Assistant for Azure DevOps</b><span>Check sprint readiness and Feature coverage in Azure DevOps with any AI assistant.</span>' +
+      '<div class="meta"><b>Refiner</b><span>The gap finder for Azure DevOps: check sprint readiness and Feature coverage with any AI assistant.</span>' +
       '<div class="row-end"><span class="lnk">Details</span><span class="lnk">Remove</span><span style="flex:1"></span><span class="toggle on"></span></div></div></div></div></div>',
     pin: () =>
       '<div class="mock">' + browserBar('dev.azure.com/…') +
       '<div class="mock-body" style="min-height:260px"><div class="page-fake"><i style="width:55%"></i><i style="width:80%"></i><i style="width:65%"></i><i style="width:40%"></i></div>' +
       '<div class="picker"><div class="pk-row muted">Extensions</div>' +
-      '<div class="pk-row"><img class="ic" src="img/icon.png" alt=""><span class="grow">Sprint Assistant</span><span class="hl">' + ICON.pin + '</span></div></div></div></div>',
+      '<div class="pk-row"><img class="ic" src="img/icon.png" alt=""><span class="grow">Refiner</span><span class="hl">' + ICON.pin + '</span></div></div></div></div>',
     open: () =>
       '<div class="mock">' + browserBar('dev.azure.com/…') +
       '<div class="browser-split"><div class="page-fake"><i style="width:55%"></i><i style="width:80%"></i><i style="width:65%"></i><i style="width:40%"></i><i style="width:70%"></i></div>' +
-      '<div class="side-panel"><img src="img/welcome.png" alt="Sprint Assistant welcome screen in the side panel"></div></div></div>',
+      '<div class="side-panel"><img src="img/welcome.png" alt="Refiner welcome screen in the side panel"></div></div></div>',
     update: () =>
       '<div class="mock">' + browserBar('chrome://extensions') +
       '<div class="mock-body"><div class="ext-card"><img class="ic" src="img/icon.png" alt="">' +
-      '<div class="meta"><b>Sprint Assistant for Azure DevOps</b><span>Version shown here</span>' +
+      '<div class="meta"><b>Refiner</b><span>Version shown here</span>' +
       '<div class="row-end"><span class="lnk">Details</span><span class="lnk">Remove</span><span class="reload hl" title="Reload">' + ICON.reload + '</span><span style="flex:1"></span><span class="toggle on"></span></div></div></div></div></div>'
   };
 
@@ -87,22 +87,22 @@
   const CHAPTERS = [
     {
       id: 'install', name: 'Install the extension', slides: [
-        { card: true, num: '1', title: 'Install Sprint Assistant', text: 'A two-minute, one-time setup. You don\'t need to be an admin.', needs: ['Chrome or Edge', 'The .zip file', 'Azure DevOps access'] },
+        { card: true, num: '1', title: 'Install Refiner', text: 'A two-minute, one-time setup. You don\'t need to be an admin.', needs: ['Chrome or Edge', 'The .zip file', 'Azure DevOps access'] },
         { title: 'Before you start', text: 'Check you have these three things.', visual: scene('before') },
         { title: 'Unzip the file', text: 'Extract the zip into a folder you\'ll keep, such as Documents. Inside it is the sprint-assistant folder.', tip: 'Don\'t delete the folder later: the browser runs the extension from it.', visual: scene('unzip') },
         { title: 'Open the extensions page', text: 'Type chrome://extensions in the address bar and press Enter.', visual: scene('address') },
         { title: 'Turn on Developer mode', text: 'Use the switch at the top right of the extensions page.', tip: 'It\'s needed because the extension comes from a file rather than the Chrome Web Store.', visual: scene('devmode') },
         { title: 'Load the folder', text: 'Click Load unpacked and select the sprint-assistant folder: the one that contains manifest.json.', visual: scene('load') },
-        { title: 'It\'s installed', text: 'Sprint Assistant now appears in your list of extensions, switched on.', visual: scene('card') },
-        { title: 'Pin it to the toolbar', text: 'Click the puzzle-piece icon, then the pin next to Sprint Assistant.', visual: scene('pin') },
-        { title: 'Open it and choose your AI', text: 'Click the Sprint Assistant icon. It opens in the side panel and asks which AI assistant you use.', tip: 'The side panel stays open while you switch tabs.', visual: scene('open') },
+        { title: 'It\'s installed', text: 'Refiner now appears in your list of extensions, switched on.', visual: scene('card') },
+        { title: 'Pin it to the toolbar', text: 'Click the puzzle-piece icon, then the pin next to Refiner.', visual: scene('pin') },
+        { title: 'Open it and choose your AI', text: 'Click the Refiner icon. It opens in the side panel and asks which AI assistant you use.', tip: 'The side panel stays open while you switch tabs.', visual: scene('open') },
         { title: 'Getting a new version', text: 'Download the new version, replace the contents of your sprint-assistant folder, then click the reload arrow on the extension\'s card.', visual: scene('update') }
       ]
     },
     {
       id: 'readiness', name: 'Sprint Readiness', slides: [
         { card: true, num: '2', title: 'Sprint Readiness', text: 'Are the stories in a sprint ready for developers to pick up? Find out before planning.', needs: ['Azure DevOps open in a tab', 'Your AI assistant'] },
-        { title: 'Connect to Azure DevOps', text: 'Open your project in any tab. The dot turns green when Sprint Assistant is connected.', visual: shot('home', 'conn') },
+        { title: 'Connect to Azure DevOps', text: 'Open your project in any tab. The dot turns green when Refiner is connected.', visual: shot('home', 'conn') },
         { title: 'Choose Sprint Readiness', text: 'Pick it on the home screen.', visual: shot('home', 'readiness') },
         { title: 'Pick the area and sprint', text: 'The next sprint is selected for you. Tick Include sub-areas to cover every team under the area.', visual: shot('r-scope', 'fields') },
         { title: 'Your team\'s rules come along', text: 'If your team has a context page in the wiki, it\'s added to the review automatically.', visual: shot('r-scope', 'ctx') },
@@ -120,7 +120,7 @@
     {
       id: 'feature', name: 'Feature Coverage', slides: [
         { card: true, num: '3', title: 'Feature Coverage', text: 'Does a Feature have every story it needs, across firmware, CCU, portals and apps?', needs: ['The Feature open in Azure DevOps', 'Your AI assistant'] },
-        { title: 'Open the Feature', text: 'Open it in Azure DevOps. Sprint Assistant notices it and shows it on the home screen.', visual: shot('f-home', 'badge') },
+        { title: 'Open the Feature', text: 'Open it in Azure DevOps. Refiner notices it and shows it on the home screen.', visual: shot('f-home', 'badge') },
         { title: 'Choose Feature Coverage', text: 'The Feature loads straight away. You can also type a Feature ID.', visual: shot('f-home', 'feature') },
         { title: 'Check the stories under it', text: 'These are the stories linked to the Feature as children, in every state.', visual: shot('f-feature', 'children') },
         { title: 'Read the warnings', text: 'Yellow chips flag things like diagrams the AI can\'t read, or an unfinished predecessor.', visual: shot('f-feature', 'chips') },
@@ -133,7 +133,7 @@
         { title: 'Stories the Feature doesn\'t ask for', text: 'Add them to the Feature, or confirm they belong.', visual: wide('f-full-bottom', 'extra') },
         { title: 'Approve learnings', text: 'Add what the review learned to your team\'s wiki page, so the next check is sharper.', visual: wide('f-full-bottom', 'learn') },
         { title: 'Come back any time', text: 'Recent checks stay on the home screen, so you can paste an answer later or reopen a result.', visual: shot('home-recent', 'recent') },
-        { card: true, end: true, num: '✓', title: 'You\'re ready', text: 'Open the Sprint Assistant side panel and run your first check.' }
+        { card: true, end: true, num: '✓', title: 'You\'re ready', text: 'Open the Refiner side panel and run your first check.' }
       ]
     }
   ];

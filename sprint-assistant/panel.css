@@ -216,3 +216,4 @@ textarea { width: 100%; padding: 10px; border: 1px solid var(--field); border-ra
 
 /* credit line (brand) */
 .credit { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line); font-size: 11px; color: var(--muted); }
+.title .tagline { font-weight: 500; color: var(--muted); font-size: 13px; }

@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sprint Assistant</title>
+<title>Refiner</title>
 <link rel="stylesheet" href="panel.css">
 </head>
 <body>
 <header class="top">
   <img class="logo" src="icons/icon48.png" alt="" width="32" height="32">
   <div class="titles">
-    <div class="title">Sprint Assistant</div>
+    <div class="title">Refiner <span class="tagline">· gap finder</span></div>
     <div class="conn" id="conn"><span class="dot"></span><span id="conn-text">Looking for Azure DevOps…</span></div>
   </div>
   <button type="button" class="icon-btn" id="btn-help" aria-label="Watch the walkthrough" title="Watch the walkthrough">
@@ -35,7 +35,7 @@
 <section id="view-welcome" class="view" hidden>
   <div class="body">
     <h1>Check your work before sprint planning</h1>
-    <p class="lead">Sprint Assistant reads your Azure DevOps items and prepares a review for the AI assistant you already use. Nothing is changed in Azure DevOps unless you approve it.</p>
+    <p class="lead">Refiner reads your Azure DevOps items and prepares a review for the AI assistant you already use. Nothing is changed in Azure DevOps unless you approve it.</p>
     <ol class="how">
       <li><span class="how-num">1</span><div><strong>Pick what to check</strong><span>A sprint's stories, or one Feature.</span></div></li>
       <li><span class="how-num">2</span><div><strong>Copy the prompt into your AI</strong><span>One click to copy, one to open your assistant.</span></div></li>
@@ -51,7 +51,7 @@
       </div>
       <div class="fine">You can change this any time.</div>
     </fieldset>
-    <footer class="credit"><span class="ver">Sprint Assistant</span><span>Made by Vinay</span></footer>
+    <footer class="credit"><span class="ver">Refiner</span><span>Made by Vinay</span></footer>
   </div>
   <div class="foot">
     <button type="button" class="primary" id="btn-welcome-done" disabled>Get started</button>
@@ -63,7 +63,7 @@
   <div class="body">
     <div class="banner warn" id="home-noado" hidden>
       <strong>Open Azure DevOps to begin.</strong>
-      <span>Open your project (dev.azure.com/…/your-project) in any tab. Sprint Assistant connects automatically.</span>
+      <span>Open your project (dev.azure.com/…/your-project) in any tab. Refiner connects automatically.</span>
     </div>
     <h1>What do you want to check?</h1>
     <button type="button" class="card" id="card-readiness">
@@ -92,7 +92,7 @@
       <h2>Recent checks</h2>
       <ul id="recent-list"></ul>
     </div>
-    <footer class="credit"><span class="ver">Sprint Assistant</span><span>Made by Vinay</span></footer>
+    <footer class="credit"><span class="ver">Refiner</span><span>Made by Vinay</span></footer>
   </div>
 </section>
 
@@ -241,7 +241,7 @@
         <div class="fine left">Leave empty to match automatically. Saved for this project.</div>
       </div>
     </details>
-    <footer class="credit"><span class="ver">Sprint Assistant</span><span>Made by Vinay</span></footer>
+    <footer class="credit"><span class="ver">Refiner</span><span>Made by Vinay</span></footer>
   </div>
   <div class="foot">
     <button type="button" class="primary" id="btn-save-settings">Save</button>

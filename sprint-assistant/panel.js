@@ -1,4 +1,4 @@
-// Sprint Assistant side panel: guided flow for Sprint Readiness and Feature Coverage.
+// Refiner side panel: guided flow for Sprint Readiness and Feature Coverage.
 
 // ---- Adjust these to match your process template ----
 const WORK_ITEM_TYPE = 'User Story';
@@ -1237,8 +1237,8 @@ async function init() {
 
 init();
 
-// Credit line: "Sprint Assistant <version>  ·  Made by Vinay"
+// Credit line: "Refiner <version>  ·  Made by Vinay"
 try {
   const v = chrome.runtime.getManifest().version;
-  document.querySelectorAll('.credit .ver').forEach((el) => { el.textContent = 'Sprint Assistant ' + v; });
+  document.querySelectorAll('.credit .ver').forEach((el) => { el.textContent = 'Refiner ' + v; });
 } catch (e) { /* outside the extension */ }

@@ -99,14 +99,14 @@ const WIKI = {
   },
 
   parentTemplate() {
-    return '# Sprint Assistant\n\nTeam context for the Sprint Assistant extension. One sub-page per area or team.\n' +
+    return '# Sprint Assistant\n\nTeam context for Refiner, the gap finder for Azure DevOps. One sub-page per area or team.\n' +
       'Edited by Scrum Masters and PMs. The extension adds the matching sub-page to every review.\n';
   },
 
   starterTemplate(name) {
     return [
-      '# Sprint Assistant – Team Context (' + name + ')',
-      'Read by the Sprint Assistant extension and added to every Sprint Readiness and Feature Coverage review.',
+      '# Refiner – Team Context (' + name + ')',
+      'Read by the Refiner extension and added to every Sprint Readiness and Feature Coverage review.',
       'Keep entries short: one rule per line. Full details belong in linked pages (the AI cannot open links).',
       '',
       '## Product components',

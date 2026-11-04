@@ -1,63 +1,85 @@
-# Sprint Assistant for Azure DevOps (v0.6, for trial)
+# Sprint Assistant
 
-## What's new in v0.6
+![Sprint Assistant: find sprint gaps before planning](docs/banner.jpg)
 
-- **Walkthrough.** The ? button opens a step-by-step walkthrough with play/pause, back/next and three chapters:
-  Install the extension, Sprint Readiness and Feature Coverage. It opens at the chapter for the screen you're on.
-  The welcome screen links to it too. Files are in `guide/`.
-- Fixed: on tall screens the panel scrolls instead of squashing its buttons and lists.
+Check your Azure DevOps work before sprint planning, with the AI assistant you already use. Sprint Assistant reads your stories and Features, prepares a review for ChatGPT, Gemini, Copilot, Claude or any assistant you choose, and turns the answer into a clear, clickable result.
 
+**Walkthrough:** after downloading, open [`START HERE.html`](START%20HERE.html) in your browser for a step-by-step guide with play and pause. The same guide opens from the **?** button inside the extension.
 
-Check your work before sprint planning, with the AI assistant you already use.
+## Why
 
-- **Sprint Readiness**: are the stories in a sprint ready for developers to pick up?
-- **Feature Coverage**: does a Feature have every story it needs, across all components?
+Sprint planning goes wrong when a story turns out to be missing details, or when nobody noticed that a Feature has no firmware story at all. Checking every story and every Feature by hand takes hours. Sprint Assistant gathers everything from Azure DevOps in one click, asks your AI the right questions, and shows you what to fix first.
 
-## What's new in v0.5
+## Features
 
-- **Stays open.** Sprint Assistant now lives in the browser's side panel instead of a popup.
-  Popups close the moment you click elsewhere; the side panel stays open while you switch to your AI tab and back.
-- **Your assistant, your choice.** First run asks which assistant you use (ChatGPT, Gemini, Copilot, Claude,
-  or your own link). Change it any time from the Ask AI step or Settings. There is no default.
-- **Guided flow.** A welcome screen, two plain-language choices, and a 3-step guide: Select → Ask AI → Result.
-  The AI's answer is pasted right in the panel; the full visual opens in a tab.
-- **Connects by itself.** Works from any tab as long as Azure DevOps is open somewhere. Open a Feature in
-  Azure DevOps and the panel offers to check it.
-- **Recent checks** on the home screen: come back later to paste an answer or reopen a result.
+- **Sprint Readiness:** for an area and sprint, checks whether each story has clear intent, testable acceptance criteria, the technical details a developer needs, and finished dependencies. Gives each story a verdict and one thing to fix, grouped by owner.
+- **Feature Coverage:** works out what a Feature needs from its acceptance criteria, description and discussion, component by component, then ticks off which child stories deliver each piece. Missing work shows as an empty red box.
+- **Works with any AI assistant.** Nothing to set up and no API keys: copy the prompt, paste it into your assistant, paste the answer back.
+- **Team context from your wiki.** A short page per area (components, how data flows, team rules) is added to every review, so the AI understands your product.
+- **Learns over time.** The AI suggests rules; approve one and it's added to your team's wiki page for future reviews.
+- **Stays open in the side panel** while you switch between Azure DevOps and your AI.
+- Uses your normal Azure DevOps sign-in. No tokens, no servers.
 
-## Install / update (Chrome 114+ or Edge)
+<p>
+  <img src="docs/panel-home.png" width="260" alt="Sprint Assistant side panel home screen">
+  <img src="docs/feature-result.png" width="520" alt="Feature Coverage result: a checklist by component with story links">
+</p>
 
-1. Unzip; replace the previous `sprint-readiness` folder if you have one.
-2. `chrome://extensions` (or `edge://extensions`) → Developer mode on → **Load unpacked**
-   (or click the reload icon on the existing card).
-3. Pin the extension. Clicking its icon opens the side panel.
+## Install
+
+Works in Chromium browsers with a side panel: Chrome 114 or later, and Edge.
+
+1. Download this repository (**Code → Download ZIP**, or the zip from the latest [Release](../../releases)) and extract it somewhere permanent.
+2. Open your browser's extensions page:
+
+   | Browser | Address |
+   |---|---|
+   | Chrome | `chrome://extensions` |
+   | Edge | `edge://extensions` |
+
+3. Turn on **Developer mode** (top-right; in Edge it's in the left sidebar).
+4. Click **Load unpacked** and choose the `sprint-assistant` folder, the one containing `manifest.json`.
+5. Pin Sprint Assistant from the puzzle-piece menu (in Edge, click the eye icon).
+
+For a step-by-step guide with pictures, open [`START HERE.html`](START%20HERE.html) in your browser after downloading.
 
 ## Use
 
-1. **Select**: choose Sprint Readiness (area + sprint → Find stories) or Feature Coverage (open the Feature, or type its ID).
-2. **Ask AI**: Copy prompt → Open your assistant → paste and send in a new chat.
-3. **Paste the answer** back in the panel → Show result → Open full result for the visual, links and learnings.
+1. Open your project in Azure DevOps in any tab.
+2. Click the Sprint Assistant icon. The side panel opens; the first time, choose your AI assistant.
+3. Choose **Sprint Readiness** (pick an area and sprint) or **Feature Coverage** (open a Feature, or type its ID).
+4. **Copy prompt**, open your assistant, paste and send in a new chat.
+5. Copy the AI's whole answer, paste it back into the panel and click **Show result**. **Open full result** shows every item with links to Azure DevOps.
 
 ## Team context page
 
-- Lives in the project wiki under `Sprint Assistant`, one sub-page per area (e.g. `Firmware`, `Squad 2`).
-- Matched to the area automatically (`75F Firmware` → `Firmware`). If none matches, the panel offers to create one.
-- Approved learnings from the full result are added to it after you confirm.
-- Settings → Team context lets you change the parent page or force a specific page.
+In your project wiki, create a page called **Sprint Assistant** with one sub-page per area or team, for example `Firmware` or `Squad 2`. The panel matches the sub-page to the area you check (`75F Firmware` finds `Firmware`) and can create a page for you from a starter template. Keep it short: components, how data flows, what a feature usually needs, a glossary and team rules.
 
-## Refining
+## Update
+
+Replace the contents of your `sprint-assistant` folder with the new version, then click the reload button on Sprint Assistant's card on the extensions page.
+
+## Privacy and permissions
+
+Sprint Assistant asks for `sidePanel`, `scripting` and `storage`, and only for `dev.azure.com` and `*.visualstudio.com`. It reads work items and wiki pages through your open Azure DevOps tab, using your own sign-in. It makes no requests to any other server: the prompt reaches your AI assistant only when you paste it there yourself. It writes to Azure DevOps only when you create a team context page or approve a learning, and asks you to confirm first. Settings and recent checks are stored in your browser.
+
+Please follow your organisation's rules on what work item content may be shared with AI assistants.
+
+## Limitations
+
+Sprint Assistant uses the Azure DevOps REST APIs and expects the Agile process names (`User Story`, `Feature`, `Closed`, `Removed`). Other process templates may need the names at the top of `sprint-assistant/panel.js` changed. Images inside work items can't be read by the AI; the result says how many were skipped. If something stops working, please [open an issue](../../issues).
+
+## For maintainers
 
 | What | Where |
 |---|---|
-| Review rules and output formats | `prompt.js` |
-| Work item type, excluded / finished states | top of `panel.js` |
-| Length limits | `LIMITS` at the top of `format.js` |
+| Review rules and output formats | `sprint-assistant/prompt.js` |
+| Work item types and states | top of `sprint-assistant/panel.js` |
+| Length limits | `LIMITS` in `sprint-assistant/format.js` |
+| Walkthrough slides | `sprint-assistant/guide/guide.js` |
 
-After editing, click reload on the extension card.
+## Disclaimer
 
-## Good to know
+Sprint Assistant is an independent project and is not affiliated with or endorsed by Microsoft. Azure DevOps is a trademark of Microsoft. ChatGPT, Gemini, Copilot and Claude are trademarks of their respective owners.
 
-- Everything runs through your open Azure DevOps tab with your signed-in session. No tokens.
-- The extension only writes to Azure DevOps when you create a team context page or approve a learning, always after you confirm.
-- Feature Coverage only uses work items linked to the Feature; it never searches the project.
-- Images become `[image]`; diagrams in a Feature are counted and reported as unread.
+Made by Vinay. Released under the [MIT License](LICENSE).

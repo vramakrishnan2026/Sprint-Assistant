@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sprint Assistant result</title>
+<link rel="stylesheet" href="result.css">
+</head>
+<body>
+<main class="page">
+  <header class="head">
+    <img class="logo" src="icons/icon48.png" alt="" width="36" height="36">
+    <div>
+      <h1 id="title">Sprint Assistant</h1>
+      <div class="sub" id="subtitle"></div>
+    </div>
+  </header>
+
+  <div class="notice" id="notice" role="status" hidden></div>
+
+  <section class="paste" id="paste" hidden>
+    <h2>Paste the AI's answer</h2>
+    <p class="muted">In your AI assistant, copy the whole answer (it ends with a <code>sprint-assistant-result</code> block) and paste it here.</p>
+    <label class="sr-only" for="answer">AI answer</label>
+    <textarea id="answer" rows="10" placeholder="Paste the full answer here"></textarea>
+    <div class="paste-row">
+      <button type="button" class="primary" id="btn-show">Show result</button>
+      <span class="error" id="paste-error" role="alert"></span>
+    </div>
+  </section>
+
+  <section id="result" hidden></section>
+
+  <div class="foot-links" id="foot-links" hidden>
+    <button type="button" class="link" id="btn-repaste">Paste a different answer</button>
+  </div>
+  <footer class="credit"><span class="ver">Sprint Assistant</span><span>Made by Vinay</span></footer>
+</main>
+<script src="ado.js"></script>
+<script src="wiki.js"></script>
+<script src="answer.js"></script>
+<script src="result.js"></script>
+</body>
+</html>

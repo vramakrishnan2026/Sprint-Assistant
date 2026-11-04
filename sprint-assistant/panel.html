@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sprint Assistant</title>
+<link rel="stylesheet" href="panel.css">
+</head>
+<body>
+<header class="top">
+  <img class="logo" src="icons/icon48.png" alt="" width="32" height="32">
+  <div class="titles">
+    <div class="title">Sprint Assistant</div>
+    <div class="conn" id="conn"><span class="dot"></span><span id="conn-text">Looking for Azure DevOps…</span></div>
+  </div>
+  <button type="button" class="icon-btn" id="btn-help" aria-label="Watch the walkthrough" title="Watch the walkthrough">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14"/><path d="M12 17h.01"/></svg>
+  </button>
+  <button type="button" class="icon-btn" id="btn-settings" aria-label="Settings" title="Settings">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+  </button>
+</header>
+
+<nav class="stepper" id="stepper" aria-label="Progress" hidden>
+  <ol>
+    <li data-step="1"><span class="num">1</span><span>Select</span></li>
+    <li data-step="2"><span class="num">2</span><span>Ask AI</span></li>
+    <li data-step="3"><span class="num">3</span><span>Result</span></li>
+  </ol>
+</nav>
+
+<div class="status" id="status" role="status" hidden></div>
+
+<!-- Welcome / how it works -->
+<section id="view-welcome" class="view" hidden>
+  <div class="body">
+    <h1>Check your work before sprint planning</h1>
+    <p class="lead">Sprint Assistant reads your Azure DevOps items and prepares a review for the AI assistant you already use. Nothing is changed in Azure DevOps unless you approve it.</p>
+    <ol class="how">
+      <li><span class="how-num">1</span><div><strong>Pick what to check</strong><span>A sprint's stories, or one Feature.</span></div></li>
+      <li><span class="how-num">2</span><div><strong>Copy the prompt into your AI</strong><span>One click to copy, one to open your assistant.</span></div></li>
+      <li><span class="how-num">3</span><div><strong>Paste the answer back here</strong><span>See what's missing, at a glance.</span></div></li>
+    </ol>
+    <button type="button" class="secondary wide" id="btn-welcome-guide">▶&#xFE0E; Watch the 5-minute walkthrough</button>
+    <fieldset class="field">
+      <legend>Which AI assistant do you use?</legend>
+      <div class="choice-grid" id="welcome-assistants"></div>
+      <div class="custom" id="welcome-custom" hidden>
+        <label for="welcome-custom-url">Link to your assistant</label>
+        <input type="url" id="welcome-custom-url" placeholder="https://">
+      </div>
+      <div class="fine">You can change this any time.</div>
+    </fieldset>
+    <footer class="credit"><span class="ver">Sprint Assistant</span><span>Made by Vinay</span></footer>
+  </div>
+  <div class="foot">
+    <button type="button" class="primary" id="btn-welcome-done" disabled>Get started</button>
+  </div>
+</section>
+
+<!-- Home -->
+<section id="view-home" class="view" hidden>
+  <div class="body">
+    <div class="banner warn" id="home-noado" hidden>
+      <strong>Open Azure DevOps to begin.</strong>
+      <span>Open your project (dev.azure.com/…/your-project) in any tab. Sprint Assistant connects automatically.</span>
+    </div>
+    <h1>What do you want to check?</h1>
+    <button type="button" class="card" id="card-readiness">
+      <span class="card-icon r" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg>
+      </span>
+      <span class="card-text">
+        <span class="card-title">Sprint Readiness</span>
+        <span class="card-desc">Are the stories in a sprint ready for developers to pick up?</span>
+      </span>
+      <span class="chev" aria-hidden="true">›</span>
+    </button>
+    <button type="button" class="card" id="card-feature">
+      <span class="card-icon f" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 17.5l2 2 4-4"/></svg>
+      </span>
+      <span class="card-text">
+        <span class="card-title">Feature Coverage</span>
+        <span class="card-desc">Does a Feature have every story it needs, across all components?</span>
+        <span class="detected" id="home-detected" hidden></span>
+      </span>
+      <span class="chev" aria-hidden="true">›</span>
+    </button>
+
+    <div class="recent" id="recent" hidden>
+      <h2>Recent checks</h2>
+      <ul id="recent-list"></ul>
+    </div>
+    <footer class="credit"><span class="ver">Sprint Assistant</span><span>Made by Vinay</span></footer>
+  </div>
+</section>
+
+<!-- Step 1: Sprint Readiness -->
+<section id="view-readiness" class="view" hidden>
+  <div class="body">
+    <button type="button" class="back" data-back="home">‹ All checks</button>
+    <h1>Sprint Readiness</h1>
+    <p class="lead">Choose the area and sprint. You'll see the stories before anything is sent.</p>
+    <div class="field">
+      <label for="area">Area</label>
+      <select id="area" disabled><option>Loading…</option></select>
+      <label class="check"><input type="checkbox" id="sub-areas" checked> Include sub-areas</label>
+    </div>
+    <div class="field">
+      <label for="iteration">Sprint</label>
+      <select id="iteration" disabled><option>Loading…</option></select>
+      <label class="check"><input type="checkbox" id="show-past"> Show past sprints</label>
+    </div>
+    <div class="ctx" id="ctx-scope"></div>
+    <button type="button" class="secondary wide" id="btn-fetch" disabled>Find stories</button>
+
+    <div class="stories" id="stories" hidden>
+      <div class="list-box">
+        <div class="list-head">
+          <label class="check strong"><input type="checkbox" id="select-all"> <span id="count-label">0 stories</span></label>
+          <span id="selected-count"></span>
+        </div>
+        <div class="list" id="list"></div>
+      </div>
+      <div class="fine left">Untick stories you don't want checked.</div>
+    </div>
+  </div>
+  <div class="foot">
+    <button type="button" class="primary" id="btn-next-readiness" disabled>Next: ask the AI</button>
+  </div>
+</section>
+
+<!-- Step 1: Feature Coverage -->
+<section id="view-feature" class="view" hidden>
+  <div class="body">
+    <button type="button" class="back" data-back="home">‹ All checks</button>
+    <h1>Feature Coverage</h1>
+    <p class="lead">Open a Feature in Azure DevOps and it's picked up here, or type its ID.</p>
+    <div class="banner info" id="feature-detected" hidden></div>
+    <div class="field">
+      <label for="feature-id">Feature ID</label>
+      <div class="inline">
+        <input type="text" inputmode="numeric" id="feature-id" placeholder="e.g. 40985" autocomplete="off">
+        <button type="button" class="secondary" id="btn-load-feature">Load</button>
+      </div>
+    </div>
+
+    <div id="feature-result" hidden>
+      <div class="feature-card">
+        <div class="row-top"><span class="row-id" id="ft-id"></span><span class="feature-title" id="ft-title"></span></div>
+        <div class="row-who" id="ft-meta"></div>
+      </div>
+      <div class="chips" id="ft-chips"></div>
+      <div class="list-box">
+        <div class="list-head"><span class="strong-text" id="ft-child-count">Stories under this Feature</span></div>
+        <div class="list" id="ft-children"></div>
+      </div>
+      <div class="ctx" id="ctx-feature"></div>
+    </div>
+  </div>
+  <div class="foot">
+    <button type="button" class="primary" id="btn-next-feature" disabled>Next: ask the AI</button>
+  </div>
+</section>
+
+<!-- Step 2: Ask AI -->
+<section id="view-ask" class="view" hidden>
+  <div class="body">
+    <button type="button" class="back" id="btn-ask-back">‹ Back</button>
+    <h1 id="ask-title">Ask your AI</h1>
+    <p class="lead" id="ask-sub"></p>
+
+    <div class="step-card" id="sc-copy">
+      <div class="sc-head"><span class="sc-num">1</span><span class="sc-title">Copy the prompt</span><span class="sc-done" hidden>Done</span></div>
+      <p class="sc-text" id="copy-meta"></p>
+      <button type="button" class="primary" id="btn-copy">Copy prompt</button>
+    </div>
+
+    <div class="step-card" id="sc-open">
+      <div class="sc-head"><span class="sc-num">2</span><span class="sc-title">Paste it into your AI and send</span></div>
+      <div class="assistant-row">
+        <label for="assistant-pick" class="sr-only">AI assistant</label>
+        <select id="assistant-pick"></select>
+        <button type="button" class="secondary" id="btn-open">Open</button>
+      </div>
+      <p class="sc-text">Start a new chat, paste (Ctrl+V) and send. This panel stays open.</p>
+    </div>
+
+    <div class="step-card" id="sc-paste">
+      <div class="sc-head"><span class="sc-num">3</span><span class="sc-title">Paste the AI's answer here</span></div>
+      <p class="sc-text">When the AI has finished, use its copy button (or select all of its answer) and paste below.</p>
+      <label for="answer" class="sr-only">AI answer</label>
+      <textarea id="answer" rows="6" placeholder="Paste the AI's whole answer"></textarea>
+      <div class="error" id="paste-error" role="alert"></div>
+      <button type="button" class="primary" id="btn-show" disabled>Show result</button>
+    </div>
+  </div>
+</section>
+
+<!-- Step 3: Result -->
+<section id="view-result" class="view" hidden>
+  <div class="body">
+    <h1 id="res-title">Result</h1>
+    <div class="res-pills" id="res-pills"></div>
+    <div class="res-fix" id="res-fix" hidden>
+      <h2>Fix first</h2>
+      <ol id="res-fix-list"></ol>
+    </div>
+    <p class="fine left" id="res-note"></p>
+  </div>
+  <div class="foot">
+    <button type="button" class="primary" id="btn-open-result">Open full result</button>
+    <button type="button" class="secondary" id="btn-new-check">Start a new check</button>
+  </div>
+</section>
+
+<!-- Settings -->
+<section id="view-settings" class="view" hidden>
+  <div class="body">
+    <button type="button" class="back" id="btn-settings-back">‹ Back</button>
+    <h1>Settings</h1>
+    <div class="field">
+      <label for="assistant">Your AI assistant</label>
+      <select id="assistant"></select>
+    </div>
+    <div class="field" id="custom-field" hidden>
+      <label for="custom-url">Link to your assistant</label>
+      <input type="url" id="custom-url" placeholder="https://">
+    </div>
+    <details class="advanced">
+      <summary>Team context (advanced)</summary>
+      <div class="field">
+        <label for="context-root">Wiki parent page</label>
+        <input type="text" id="context-root" placeholder="Sprint Assistant">
+        <div class="fine left">Sub-pages are matched to the area automatically (e.g. "75F Firmware" → "Firmware").</div>
+      </div>
+      <div class="field">
+        <label for="context-override">Always use this page (optional)</label>
+        <input type="text" id="context-override" placeholder="/Sprint Assistant/Firmware">
+        <div class="fine left">Leave empty to match automatically. Saved for this project.</div>
+      </div>
+    </details>
+    <footer class="credit"><span class="ver">Sprint Assistant</span><span>Made by Vinay</span></footer>
+  </div>
+  <div class="foot">
+    <button type="button" class="primary" id="btn-save-settings">Save</button>
+  </div>
+</section>
+
+<script src="prompt.js"></script>
+<script src="ado.js"></script>
+<script src="wiki.js"></script>
+<script src="format.js"></script>
+<script src="answer.js"></script>
+<script src="panel.js"></script>
+</body>
+</html>
